@@ -14,4 +14,37 @@ const firebaseConfig = {
     const db = firebase.firestore();
     db.settings({ timestampsInSnapshots: true});
 
-    form = document.querySelector('#add-message-form')
+    form = document.querySelector('#add-message-form');
+    input = document.querySelector('#text-input-area');
+    showMessagesButton = document.querySelector('#show-messages');
+    messageDisplay = document.querySelector('#message-display');
+
+    input.addEventListener('focus', (e)=>{
+        e.target.value = '';
+    })
+
+
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        console.log(form.message.value);
+        db.collection('messages').add({
+            message: form.message.value
+        });
+        form.message.value = '';
+    })
+
+    showMessagesButton.addEventListener('click', getMessages);
+
+    function getMessages(){
+        db.collection('messages').get().then(snapshot => {
+            console.log(snapshot.docs);
+            snapshot.docs.forEach(doc => {
+                renderMessage(doc);
+            });
+        });
+    }
+
+    function renderMessage(doc){
+        console.log(doc.data().message);
+    }
+
