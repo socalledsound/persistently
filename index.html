@@ -22,7 +22,7 @@
             
         
 
-        <button id="submit-message">submit message</button>
+        <button id="submit-message" type="submit" form="add-message-form" value="submit">submit message</button>
         <button id="show-message">show random message</button>
 
         <div class="message-display">
@@ -47,7 +47,7 @@
         firebase.initializeApp(firebaseConfig);
 
         const db = firebase.firestore();
-        db.settings({ timestampsInSnapshots: true});
+        db.settings({ timestampInSnapshots: true});
 
 
       </script>
